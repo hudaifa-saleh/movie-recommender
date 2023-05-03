@@ -19,7 +19,8 @@ class RatingChoice(models.IntegerChoices):
 
 class RatingQuerySet(models.QuerySet):
     def avg(self):
-        return self.aaggregate(avg=Avg("value"))["average"]
+        return self.aggregate(average=Avg('value'))['average']
+
 
 
 class RatingManager(models.Manager):

@@ -2,11 +2,27 @@ import datetime
 
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 
 from ratings.models import Rating
 
-RATING_CALC_TIME_IN_DAYS = 1
+RATING_CALC_TIME_IN_DAYS = 3
+
+
+class MovieQuerySet(models.QuerySet):
+    def needs_updating(self):
+        now = timezone.now()
+        days_ago = now - datetime.timedelta(days=RATING_CALC_TIME_IN_DAYS)
+        return self.filter(Q(rating_last_updated__isnull=True) | Q(rating_last_updated__lte=days_ago))
+
+
+class MovieManager(models.Manager):
+    def get_queryset(self, *args, **kwargs):
+        return MovieQuerySet(self.model, using=self._db)
+
+    def needs_updating(self):
+        return self.get_queryset().needs_updating()
 
 
 class Movie(models.Model):
@@ -33,12 +49,12 @@ class Movie(models.Model):
         return self.calculate_rating()
 
     def calculate_ratings_count(self):
-        return self.ratings.all().count()
+        return self.rating.all().count()
 
     def calculate_ratings_avg(self):
-        return self.ratings.all().avg()
+        return self.rating.all().avg()
 
-    def calculate_rating(self, save=True):
+    def calculate_ratings(self, save=True):
         rating_avg = self.calculate_ratings_avg()
         rating_count = self.calculate_ratings_count()
         self.rating_count = rating_count

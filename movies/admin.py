@@ -4,8 +4,8 @@ from .models import Movie
 
 
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ["__str__", "id", "rating_avg", "rating_count"]
-    readonly_fields = ["id", "rating_avg", "rating_count"]
+    list_display = ["__str__", "rating_count", "rating_avg", "rating_last_updated"]
+    readonly_fields = ["rating_avg", "rating_count", "rating_avg_display"]
     search_fields = ["id"]
 
 
