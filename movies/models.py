@@ -20,7 +20,9 @@ class Movie(models.Model):
     rating_count = models.IntegerField(blank=True, null=True)
 
     def __str__(self) -> str:
-        return f"{self.title} | {self.id}"
+        if not self.release_date:
+            return f"{self.title}"
+        return f"{self.title} | ({self.release_date.year})"
 
     def rating_avg_display(self):
         now = timezone.now()
