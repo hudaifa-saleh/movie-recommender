@@ -35,6 +35,8 @@ class Movie(models.Model):
     rating_avg = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2)
     rating_count = models.IntegerField(blank=True, null=True)
 
+    objects = MovieManager()
+
     def __str__(self) -> str:
         if not self.release_date:
             return f"{self.title}"

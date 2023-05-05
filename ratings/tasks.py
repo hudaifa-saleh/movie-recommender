@@ -16,6 +16,7 @@ from .models import Rating, RatingChoice
 User = get_user_model()
 
 
+@shared_task(name="task_generate_fake_reviews")
 def generate_fake_reviews(users=10, count=100, null_avg=False):
     user_s = User.objects.first()  # 1
     user_e = User.objects.last()
