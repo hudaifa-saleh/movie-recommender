@@ -68,7 +68,7 @@ ROOT_URLCONF = "config.urls"
 
 # celery
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std:setting-broker_url
-CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_BROKER_URL = config("CELERY_BROKER_REDIS_URL")  # "redis://localhost:6379"
 CELERY_RESULT_BACKEND = "django-db"
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#result-extended
 # CELERY_RESULT_EXTENDED = True
