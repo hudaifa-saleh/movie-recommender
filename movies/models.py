@@ -3,6 +3,7 @@ import datetime
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 from django.utils import timezone
 
 from ratings.models import Rating
@@ -41,6 +42,9 @@ class Movie(models.Model):
         if not self.release_date:
             return f"{self.title}"
         return f"{self.title} | ({self.release_date.year})"
+
+    def get_absolute_url(self):
+        return reverse("movies:movie_detail", kwargs={"pk": self.pk})
 
     def rating_avg_display(self):
         now = timezone.now()
