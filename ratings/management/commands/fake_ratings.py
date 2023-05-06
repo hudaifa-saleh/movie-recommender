@@ -3,7 +3,8 @@ from django.core.management.base import BaseCommand
 
 from movies.models import Movie
 from ratings.models import Rating
-from ratings.tasks import generate_fake_reviews
+
+# from ratings.tasks import generate_fake_reviews
 
 User = get_user_model()
 
@@ -19,8 +20,8 @@ class Command(BaseCommand):
         show_total = options.get("show_total")
         user_count = options.get("users")
         # print(count, show_total, user_count)
-        new_ratings = generate_fake_reviews(count=count, users=user_count)
-        print(f"New ratings: {len(new_ratings)}")
-        if show_total:
-            qs = Rating.objects.all()
-            print(f"Total ratings: {qs.count()}")
+        # new_ratings = generate_fake_reviews(count=count, users=user_count)
+        # print(f"New ratings: {len(new_ratings)}")
+        # if show_total:
+        #     qs = Rating.objects.all()
+        #     print(f"Total ratings: {qs.count()}")

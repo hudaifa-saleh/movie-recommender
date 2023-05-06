@@ -25,9 +25,9 @@ DATA_DIR = BASE_DIR / "data"
 SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DJANGO_DEBUG", default=0, cast=bool)
+DEBUG = config("DJANGO_DEBUG")
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -39,9 +39,13 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
 ]
 
 THIRD_PARTY_APPS = [
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
     "django_celery_beat",
     "django_celery_results",
 ]
@@ -51,6 +55,14 @@ LOCAL_APPS = [
     "core",
     "ratings",
 ]
+
+SITE_ID = 1
+
+LOGIN_URL = "/account/login"
+LOGIN_REDIRECT_URL = "/"
+ACCCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_EMAIL_VERIFICATION = None
+
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

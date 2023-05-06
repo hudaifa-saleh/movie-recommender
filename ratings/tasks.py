@@ -1,45 +1,48 @@
-import datetime
-import decimal
-import random
-import time
+# import datetime
+# import decimal
+# import random
+# import time
 
-from celery import shared_task
-from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
-from django.db.models import Avg, Count
-from django.utils import timezone
+# from celery import shared_task
+# from django.contrib.auth import get_user_model
+# from django.contrib.contenttypes.models import ContentType
+# from django.db.models import Avg, Count
+# from django.utils import timezone
 
-from movies.models import Movie
+# from movies.models import Movie
 
-from .models import Rating, RatingChoice
+# from .models import Rating, RatingChoice
 
-User = get_user_model()
+# User = get_user_model()
 
 
-@shared_task(name="task_generate_fake_reviews")
-def generate_fake_reviews(users=10, count=100, null_avg=False):
-    user_s = User.objects.first()  # 1
-    user_e = User.objects.last()
-    random_user_ids = random.sample(range(user_s.id, user_e.id), users)
-    users = User.objects.filter(id__in=random_user_ids)
+# @shared_task(name="task_generate_fake_reviews")
+# def generate_fake_reviews(users=10, count=100, null_avg=False):
+#     user_s = User.objects.first()  # 1
+#     user_e = User.objects.last()
+#     random_user_ids = random.sample(range(user_s.id, user_e.id), users)
+#     users = User.objects.filter(id__in=random_user_ids)
 
-    movies = Movie.objects.all().order_by("?")[:count]
-    movie_ctype = ContentType.objects.get_for_model(Movie)
-    if null_avg:
-        movies = Movie.objects.all().order_by("?")[:count]
+#     movies = Movie.objects.all().order_by("?")[:count]
+#     movie_ctype = ContentType.objects.get_for_model(Movie)
+#     if null_avg:
+#         movies = Movie.objects.all().order_by("?")[:count]
 
-    n_ratings = movies.count()
-    rating_choices = [x for x in RatingChoice.values if x is not None]
-    user_ratings = [random.choice(rating_choices) for _ in range(0, n_ratings)]
+#     n_ratings = movies.count()
+#     rating_choices = [x for x in RatingChoice.values if x is not None]
+#     user_ratings = [random.choice(rating_choices) for _ in range(0, n_ratings)]
 
-    new_ratings = []
-    for movie in movies:
-        rating_obj = Rating.objects.create(
-            content_object=movie,
-            # content_type=movie_ctype,
-            # object_id=movie.id,
-            value=user_ratings.pop(),
-            user=random.choice(users),
-        )
-        new_ratings.append(rating_obj.id)
-    return new_ratings
+#     new_ratings = []
+#     for movie in movies:
+#         rating_obj = Rating.objects.create(
+#             content_object=movie,
+#             # content_type=movie_ctype,
+#             # object_id=movie.id,
+#             value=user_ratings.pop(),
+#             user=random.choice(users),
+#         )
+#         new_ratings.append(rating_obj.id)
+#     return new_ratings
+
+
+
