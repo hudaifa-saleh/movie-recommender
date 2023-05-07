@@ -50,9 +50,9 @@ class Movie(models.Model):
         now = timezone.now()
         if not self.rating_last_updated:
             return self.calculate_rating()
-        if self.rating_last_updated > now - datetime.timedelta(days=RATING_CALC_TIME_IN_DAYS):
-            return self.rating_avg
-        return self.calculate_rating()
+        # if self.rating_last_updated > now - datetime.timedelta(days=RATING_CALC_TIME_IN_DAYS):
+        #     return self.rating_avg
+        # return self.calculate_rating()
 
     def calculate_ratings_count(self):
         return self.rating.all().count()
