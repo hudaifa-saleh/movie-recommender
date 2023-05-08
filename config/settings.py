@@ -55,6 +55,7 @@ LOCAL_APPS = [
     "movies",
     "core",
     "ratings",
+    "exports",
 ]
 
 SITE_ID = 1
@@ -179,6 +180,7 @@ if USE_TZ:
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+MEDIA_ROOT = BASE_DIR / "local_cdn" / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
