@@ -22,12 +22,12 @@
         <p class="card-text">{{ object.overview }}</p>
         <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-                <a type="button" class="btn btn-sm btn-outline-secondary" href='{{ object.get_absolute_url }}'>View</a>
-                {% comment %} <a type="button" class="btn btn-sm btn-outline-secondary" href='{{ }}'>Edit</a>
+                <a type="button" class="btn  btn-primary" href='{{ object.get_absolute_url }}'>View</a>
+                {% comment %} <a type="button" class="btn  btn-primary" href='{{ }}'>Edit</a>
                 {% endcomment %}
             </div>
             <div>
-
+                {% if skip is True %}<button hx-post='/rate/movie/' class='btn btn-primary'>Skip</button>{% endif %}
                 {% include "ratings/snippet/rating-choices.html" with object_id=object.id current_rating=current_rating %}
 
                 {% if object.rating_avg is not None %}

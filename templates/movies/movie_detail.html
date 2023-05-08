@@ -19,7 +19,7 @@
                     <div class="btn-group">
 
                         {% if object.get_absolute_url in not request.path %}
-                        <a type="button" class="btn btn-sm btn-outline-secondary"
+                        <a type="button" class="btn btn-primary"
                             href='{{ object.get_absolute_url }}'>View</a>
                         {% endif %}
 
