@@ -12,7 +12,13 @@
     </svg> {% endcomment %}
 
     <div class="card-body">
-        <h3>{{ object.title }}</h3> <small> <b>{{ object.id }}</b></small>
+        <h3>{{ object.title }}</h3> 
+        <small>
+            {% if object.release_date %}
+            {{ object.release_date.year }}
+            {% endif %}
+        </small>
+        <small> <b>{{ object.id }}</b></small>
         <p class="card-text">{{ object.overview }}</p>
         <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
