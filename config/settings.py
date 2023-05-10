@@ -56,6 +56,7 @@ LOCAL_APPS = [
     "core",
     "ratings",
     "exports",
+    "ml",
 ]
 
 SITE_ID = 1
