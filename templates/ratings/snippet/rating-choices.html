@@ -4,13 +4,13 @@
     <input type="hidden" value="{{ object_id }}" name="object_id" />
     {% endif %}
 
-<select class='form-control'>
-    {% for choice in ratings_choice %}
-    {% if choice is None %}
-    <option disabled selected="{{ choice }}">Pick a rating</option>
-    {% else %}
-    <option {% if current_rating == choice %} selected {% endif %} value="{{ choice }}">{{ choice }}</option>
-    {% endif %}
-    {% endfor %}
-</select>
+    <select class='form-control'>
+        {% for choice in ratings_choice %}
+        {% if choice is None %}
+        <option disabled selected="{{ choice }}">Pick a rating</option>
+        {% else %}
+        <option {% if current_rating == choice %} selected {% endif %} value="{{ choice }}">{{ choice }}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
 </form>
