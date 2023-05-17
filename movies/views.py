@@ -17,7 +17,7 @@ SORTING_CHOICES = {
 
 
 class MovieListView(generic.ListView):
-    paginate_by = 100
+    paginate_by = 300
 
     def get_queryset(self):
         request = self.request
@@ -93,13 +93,18 @@ movie_infinte_view = MovieInfininteRatingView.as_view()
 
 
 class MoviePopularView(MovieDetailView):
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["endless_path"] = "/movies/popular/"
+        return context
+
     def get_object(self):
         user = self.request.user
         exclude_ids = []
         if user.is_authenticated:
             exclude_ids = [x.object_id for x in user.rating_set.filter(active=True)]
-        movie_id_options = Movie.objects.all().popular().exclude(id__in=exclude_ids).values_list("id", flat=True)[:99]
-        return Movie.objects.all().exclude(id__in=movie_id_options).order_by("?").first()
+        movie_id_options = Movie.objects.all().popular().exclude(id__in=exclude_ids).values_list("id", flat=True)[:250]
+        return Movie.objects.filter(id__in=movie_id_options).order_by("?").first()
 
     def get_template_names(self):
         request = self.request
